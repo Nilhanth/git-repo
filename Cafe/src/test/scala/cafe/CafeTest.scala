@@ -18,21 +18,39 @@ class CafeTest extends FunSuite with BeforeAndAfter {
      */
     test("Calculate total for individual items") {
 
+        // Items = 0.50
+        // Service = 0.00
+        // Total = 0.50
         result = myCafe.calculateTotal(List(("Cola", "Cold")))
         assertResult(BigDecimal("0.50"))(result)
 
+        // Items = 1.00
+        // Service = 0.00
+        // Total = 1.00
         result = myCafe.calculateTotal(List(("Coffee", "Hot")))
         assertResult(BigDecimal("1.00"))(result)
 
+        // Items = 2.00
+        // Service = 0.20 (10%)
+        // Total = 2.20
         result = myCafe.calculateTotal(List(("Cheese Sandwich", "Cold")))
         assertResult(BigDecimal("2.20"))(result)
 
+        // Items = 2.50
+        // Service = 0.50 (20%)
+        // Total = 3.00
         result = myCafe.calculateTotal(List(("Cheese Sandwich", "Hot")))
         assertResult(BigDecimal("3.00"))(result)
 
+        // Items = 4.00
+        // Service = 0.40 (10%)
+        // Total = 4.40
         result = myCafe.calculateTotal(List(("Steak Sandwich", "Cold")))
         assertResult(BigDecimal("4.40"))(result)
 
+        // Items = 4.50
+        // Service = 0.90 (20%)
+        // Total = 5.40
         result = myCafe.calculateTotal(List(("Steak Sandwich", "Hot")))
         assertResult(BigDecimal("5.40"))(result)
     }
@@ -42,45 +60,45 @@ class CafeTest extends FunSuite with BeforeAndAfter {
      */
     test("Calculate total with 2 or more items") {
 
-        // 0.50 + 0.50 = 1.00
+        // Items = 0.50 + 0.50 = 1.00
         // Service = 0.00
         // Total = 1.00
         result = myCafe.calculateTotal(List(("Cola", "Cold"), ("Cola", "Cold")))
         assertResult(BigDecimal("1.00"))(result)
 
-        // 0.50 + 0.50 = 1.00
+        // Items = 0.50 + 1.00 = 1.50
         // Service = 0.00
-        // Total = 1.00
+        // Total = 1.50
         result = myCafe.calculateTotal(List(("Cola", "Cold"), ("Coffee", "Hot")))
         assertResult(BigDecimal("1.50"))(result)
 
-        // 0.50 + 0.50 = 1.00
-        // Service = 0.00
-        // Total = 1.00
+        // Items = 0.50 + 2.00 = 2.50
+        // Service = 0.25 (10%)
+        // Total = 2.75
         result = myCafe.calculateTotal(List(("Cola", "Cold"), ("Cheese Sandwich", "Cold")))
         assertResult(BigDecimal("2.75"))(result)
 
-        // 0.50 + 0.50 = 1.00
-        // Service = 0.00
-        // Total = 1.00
+        // Items = 0.50 + 4.50 = 5.00
+        // Service = 1.00 (20%)
+        // Total = 6.00
         result = myCafe.calculateTotal(List(("Cola", "Cold"), ("Steak Sandwich", "Hot")))
         assertResult(BigDecimal("6.00"))(result)
 
-        // 0.50 + 0.50 = 1.00
-        // Service = 0.00
-        // Total = 1.00
+        // Items = 1.00 + 2.00 + 4.50 = 7.50
+        // Service = 1.50 (20%)
+        // Total = 9.00
         result = myCafe.calculateTotal(List(("Coffee", "Hot"), ("Cheese Sandwich", "Cold"), ("Steak Sandwich", "Hot")))
         assertResult(BigDecimal("9.00"))(result)
 
-        // 0.50 + 0.50 = 1.00
-        // Service = 0.00
-        // Total = 1.00
+        // Items = 0.50 + 1.00 + 2.00 + 4.50 = 8.00
+        // Service = 1.60 (20%)
+        // Total = 9.60
         result = myCafe.calculateTotal(List(("Cola", "Cold"), ("Coffee", "Hot"), ("Cheese Sandwich", "Cold"), ("Steak Sandwich", "Hot")))
         assertResult(BigDecimal("9.60"))(result)
 
-        // 0.50 + 0.50 = 1.00
-        // Service = 0.00
-        // Total = 1.00
+        // Items = 0.50 + 1.00 + 2.00 + 2.50 + 4.00 + 4.50 = 14.50
+        // Service = 2.90
+        // Total = 17.40
         result = myCafe.calculateTotal(List(("Cola", "Cold"), ("Coffee", "Hot"), ("Cheese Sandwich", "Cold"), ("Cheese Sandwich", "Hot"), ("Steak Sandwich", "Cold"), ("Steak Sandwich", "Hot")))
         assertResult(BigDecimal("17.40"))(result)
     }

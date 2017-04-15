@@ -2,6 +2,7 @@ package cafe
 
 import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfter
+import cafe.CafeConstants._
 
 class CafeTest extends FunSuite with BeforeAndAfter {
 
@@ -21,37 +22,37 @@ class CafeTest extends FunSuite with BeforeAndAfter {
         // Items = 0.50
         // Service = 0.00
         // Total = 0.50
-        result = myCafe.calculateTotal(List(("Cola", "Cold")))
+        result = myCafe.calculateTotal(List((COLA, COLD)))
         assertResult(BigDecimal("0.50"))(result)
 
         // Items = 1.00
         // Service = 0.00
         // Total = 1.00
-        result = myCafe.calculateTotal(List(("Coffee", "Hot")))
+        result = myCafe.calculateTotal(List((COFFEE, HOT)))
         assertResult(BigDecimal("1.00"))(result)
 
         // Items = 2.00
         // Service = 0.20 (10%)
         // Total = 2.20
-        result = myCafe.calculateTotal(List(("Cheese Sandwich", "Cold")))
+        result = myCafe.calculateTotal(List((CHEESE_SANDWICH, COLD)))
         assertResult(BigDecimal("2.20"))(result)
 
         // Items = 2.50
         // Service = 0.50 (20%)
         // Total = 3.00
-        result = myCafe.calculateTotal(List(("Cheese Sandwich", "Hot")))
+        result = myCafe.calculateTotal(List((CHEESE_SANDWICH, HOT)))
         assertResult(BigDecimal("3.00"))(result)
 
         // Items = 4.00
         // Service = 0.40 (10%)
         // Total = 4.40
-        result = myCafe.calculateTotal(List(("Steak Sandwich", "Cold")))
+        result = myCafe.calculateTotal(List((STEAK_SANDWICH, COLD)))
         assertResult(BigDecimal("4.40"))(result)
 
         // Items = 4.50
         // Service = 0.90 (20%)
         // Total = 5.40
-        result = myCafe.calculateTotal(List(("Steak Sandwich", "Hot")))
+        result = myCafe.calculateTotal(List((STEAK_SANDWICH, HOT)))
         assertResult(BigDecimal("5.40"))(result)
     }
 
@@ -63,43 +64,43 @@ class CafeTest extends FunSuite with BeforeAndAfter {
         // Items = 0.50 + 0.50 = 1.00
         // Service = 0.00
         // Total = 1.00
-        result = myCafe.calculateTotal(List(("Cola", "Cold"), ("Cola", "Cold")))
+        result = myCafe.calculateTotal(List((COLA, COLD), (COLA, COLD)))
         assertResult(BigDecimal("1.00"))(result)
 
         // Items = 0.50 + 1.00 = 1.50
         // Service = 0.00
         // Total = 1.50
-        result = myCafe.calculateTotal(List(("Cola", "Cold"), ("Coffee", "Hot")))
+        result = myCafe.calculateTotal(List((COLA, COLD), (COFFEE, HOT)))
         assertResult(BigDecimal("1.50"))(result)
 
         // Items = 0.50 + 2.00 = 2.50
         // Service = 0.25 (10%)
         // Total = 2.75
-        result = myCafe.calculateTotal(List(("Cola", "Cold"), ("Cheese Sandwich", "Cold")))
+        result = myCafe.calculateTotal(List((COLA, COLD), (CHEESE_SANDWICH, COLD)))
         assertResult(BigDecimal("2.75"))(result)
 
         // Items = 0.50 + 4.50 = 5.00
         // Service = 1.00 (20%)
         // Total = 6.00
-        result = myCafe.calculateTotal(List(("Cola", "Cold"), ("Steak Sandwich", "Hot")))
+        result = myCafe.calculateTotal(List((COLA, COLD), (STEAK_SANDWICH, HOT)))
         assertResult(BigDecimal("6.00"))(result)
 
         // Items = 1.00 + 2.00 + 4.50 = 7.50
         // Service = 1.50 (20%)
         // Total = 9.00
-        result = myCafe.calculateTotal(List(("Coffee", "Hot"), ("Cheese Sandwich", "Cold"), ("Steak Sandwich", "Hot")))
+        result = myCafe.calculateTotal(List((COFFEE, HOT), (CHEESE_SANDWICH, COLD), (STEAK_SANDWICH, HOT)))
         assertResult(BigDecimal("9.00"))(result)
 
         // Items = 0.50 + 1.00 + 2.00 + 4.50 = 8.00
         // Service = 1.60 (20%)
         // Total = 9.60
-        result = myCafe.calculateTotal(List(("Cola", "Cold"), ("Coffee", "Hot"), ("Cheese Sandwich", "Cold"), ("Steak Sandwich", "Hot")))
+        result = myCafe.calculateTotal(List((COLA, COLD), (COFFEE, HOT), (CHEESE_SANDWICH, COLD), (STEAK_SANDWICH, HOT)))
         assertResult(BigDecimal("9.60"))(result)
 
         // Items = 0.50 + 1.00 + 2.00 + 2.50 + 4.00 + 4.50 = 14.50
         // Service = 2.90
         // Total = 17.40
-        result = myCafe.calculateTotal(List(("Cola", "Cold"), ("Coffee", "Hot"), ("Cheese Sandwich", "Cold"), ("Cheese Sandwich", "Hot"), ("Steak Sandwich", "Cold"), ("Steak Sandwich", "Hot")))
+        result = myCafe.calculateTotal(List((COLA, COLD), (COFFEE, HOT), (CHEESE_SANDWICH, COLD), (CHEESE_SANDWICH, HOT), (STEAK_SANDWICH, COLD), (STEAK_SANDWICH, HOT)))
         assertResult(BigDecimal("17.40"))(result)
     }
 
@@ -142,11 +143,11 @@ class CafeTest extends FunSuite with BeforeAndAfter {
 
         // MAXIMUM SERVICE CHARGE
         result = myCafe.calculateServiceCharge(BigDecimal("100.00"), true, true)
-        assertResult(myCafe.MAX_SERVICE_CHARGE)(result)
+        assertResult(MAX_SERVICE_CHARGE)(result)
         result = myCafe.calculateServiceCharge(BigDecimal("200.00"), true, true)
-        assertResult(myCafe.MAX_SERVICE_CHARGE)(result)
+        assertResult(MAX_SERVICE_CHARGE)(result)
         result = myCafe.calculateServiceCharge(BigDecimal("300.00"), true, true)
-        assertResult(myCafe.MAX_SERVICE_CHARGE)(result)
+        assertResult(MAX_SERVICE_CHARGE)(result)
     }
 
     /**
@@ -154,8 +155,33 @@ class CafeTest extends FunSuite with BeforeAndAfter {
      */
     test("Calculate total with invalid items") {
 
+        // VALID ITEM & STATE, BUT SELECTION NOT ON MENU
         try {
-            result = myCafe.calculateTotal(List(("Cola", "abc")))
+            result = myCafe.calculateTotal(List((COLA, HOT)))
+            // FAIL
+            fail("Method should throw exception")
+        } catch {
+            case nsee: NoSuchElementException => {
+                // PASS
+                assert(true)
+            }
+        }
+
+        // INVALID ITEM NAME
+        try {
+            result = myCafe.calculateTotal(List(("Pepsi", COLD)))
+            // FAIL
+            fail("Method should throw exception")
+        } catch {
+            case nsee: NoSuchElementException => {
+                // PASS
+                assert(true)
+            }
+        }
+
+        // INVALID ITEM STATE
+        try {
+            result = myCafe.calculateTotal(List((COLA, "medium")))
             // FAIL
             fail("Method should throw exception")
         } catch {

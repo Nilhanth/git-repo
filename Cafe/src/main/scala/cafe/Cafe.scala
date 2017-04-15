@@ -4,6 +4,7 @@ import java.util.NoSuchElementException
 import scala.collection.mutable.Map
 import scala.math.BigDecimal
 import scala.math.BigDecimal.RoundingMode
+import cafe.CafeConstants._
 
 class Cafe {
 
@@ -14,14 +15,12 @@ class Cafe {
 
     // Create a map with products and their prices
     val products = Map[(String, String), (String, BigDecimal)](
-        (("Cola", "Cold") -> ("Drink", BigDecimal("0.50"))),
-        (("Coffee", "Hot") -> ("Drink", BigDecimal("1.00"))),
-        (("Cheese Sandwich", "Cold") -> ("Food", BigDecimal("2.00"))),
-        (("Cheese Sandwich", "Hot") -> ("Food", BigDecimal("2.50"))), // Example of both options ONLY (not in requirements)
-        (("Steak Sandwich", "Cold") -> ("Food", BigDecimal("4.00"))), // Example of both options ONLY (not in requirements)
-        (("Steak Sandwich", "Hot") -> ("Food", BigDecimal("4.50"))))
-
-    val MAX_SERVICE_CHARGE = BigDecimal.exact("20.00")
+        ((COLA, COLD) -> (DRINK, BigDecimal("0.50"))),
+        ((COFFEE, HOT) -> (DRINK, BigDecimal("1.00"))),
+        ((CHEESE_SANDWICH, COLD) -> (FOOD, BigDecimal("2.00"))),
+        ((CHEESE_SANDWICH, HOT) -> (FOOD, BigDecimal("2.50"))), // Example of both options ONLY (not in requirements)
+        ((STEAK_SANDWICH, COLD) -> (FOOD, BigDecimal("4.00"))), // Example of both options ONLY (not in requirements)
+        ((STEAK_SANDWICH, HOT) -> (FOOD, BigDecimal("4.50"))))
 
     /**
      * Calculates the total price of all the items in a given list
@@ -52,11 +51,11 @@ class Cafe {
                 total = total.+(itemPrice)
 
                 // Identify whether food or drink
-                if ("Food".equals(product._1))
+                if (FOOD.equals(product._1))
                     containsFood = true;
 
                 // Identify whether hot or cold
-                if ("Hot".equals(item._2))
+                if (HOT.equals(item._2))
                     containsHotItems = true;
 
                 println(" Price: " + itemPrice)

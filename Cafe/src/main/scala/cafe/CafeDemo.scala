@@ -1,5 +1,7 @@
 package cafe
 
+import cafe.CafeConstants._
+
 object CafeDemo {
 
     def main(args: Array[String]) {
@@ -8,12 +10,12 @@ object CafeDemo {
 
         // Create list of items (specifying Hot/Cold for each item)
         var itemList = List( //
-            ("Cola", "Cold"), //
-            ("Coffee", "Hot"), //
-            ("Cheese Sandwich", "Cold"), //
-            ("Cheese Sandwich", "Hot"), //
-            ("Steak Sandwich", "Cold"), //
-            ("Steak Sandwich", "Hot"))
+            (COLA, COLD), //
+            (COFFEE, HOT), //
+            (CHEESE_SANDWICH, COLD), //
+            (CHEESE_SANDWICH, HOT), //
+            (STEAK_SANDWICH, COLD), //
+            (STEAK_SANDWICH, HOT))
 
         try {
             var total = myCafe.calculateTotal(itemList)

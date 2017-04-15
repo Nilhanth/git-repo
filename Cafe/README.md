@@ -27,8 +27,8 @@ Customers don’t know how much to tip and staff need tips to survive! This proj
 
 #####Run
 1. See main Demo object **CafeDemo** to see how **Cafe** class is used when passing in a list of items.
-1. Use "run" command to execute the main Demo object
-
+1. Use "run" command to execute the main Demo object with a default sample list of items
+1. Use "run [arguments]" to execute with your own list of items (see **CafeDemo** class for usage format)
 
 #####Test
 1. See test class **CafeTest** to see how **Cafe** class methods are tested.

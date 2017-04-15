@@ -6,13 +6,17 @@ object CafeDemo {
 
         def myCafe: Cafe = new Cafe()
 
+        // Create list of items (specifying Hot/Cold for each item)
+        var itemList = List( //
+            ("Cola", "Cold"), //
+            ("Coffee", "Hot"), //
+            ("Cheese Sandwich", "Cold"), //
+            ("Cheese Sandwich", "Hot"), //
+            ("Steak Sandwich", "Cold"), //
+            ("Steak Sandwich", "Hot"))
+
         try {
-            var total = myCafe.calculateTotal(List(("Cola", "Cold"), //
-                ("Coffee", "Hot"), //
-                ("Cheese Sandwich", "Cold"), //
-                ("Cheese Sandwich", "Hot"), //
-                ("Steak Sandwich", "Cold"), //
-                ("Steak Sandwich", "Hot")))
+            var total = myCafe.calculateTotal(itemList)
             println("Amount returned from method: " + total)
         } catch {
             case nsee: NoSuchElementException => {

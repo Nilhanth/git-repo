@@ -89,7 +89,7 @@ class Cafe {
      *
      * @param total - total amount
      * @param containsFood - whether the items include any food
-     * @param containsHotItems - whether the items include any HOT food
+     * @param containsHotFood - whether the items include any HOT food
      * @return the Service Charge
      */
     def calculateServiceCharge(total: BigDecimal, containsFood: Boolean, containsHotFood: Boolean): BigDecimal = {

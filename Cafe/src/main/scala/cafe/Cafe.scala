@@ -34,7 +34,7 @@ class Cafe {
 
         var total = BigDecimal("0.00")
         var containsFood = false;
-        var containsHotItems = false;
+        var containsHotFood = false;
 
         println("============================")
         println("Calculating total for items:")
@@ -50,13 +50,18 @@ class Cafe {
                 def itemPrice: BigDecimal = product._2.asInstanceOf[BigDecimal]
                 total = total.+(itemPrice)
 
-                // Identify whether food or drink
-                if (FOOD.equals(product._1))
+                // If item is food
+                if (FOOD.equals(product._1)) {
+
+                    // Then flag as food
                     containsFood = true;
 
-                // Identify whether hot or cold
-                if (HOT.equals(item._2))
-                    containsHotItems = true;
+                    // If food is hot
+                    if (HOT.equals(item._2)) {
+                        // Then flag as hot
+                        containsHotFood = true;
+                    }
+                }
 
                 println(" Price: " + itemPrice)
             } catch {
@@ -70,7 +75,7 @@ class Cafe {
         println("=====\nSubtotal: " + total)
 
         // Calculate Service Charge
-        var serviceCharge = calculateServiceCharge(total, containsFood, containsHotItems)
+        var serviceCharge = calculateServiceCharge(total, containsFood, containsHotFood)
 
         // Add Service Charge to total
         total = total.+(serviceCharge)
@@ -87,13 +92,13 @@ class Cafe {
      * @param containsHotItems - whether the items include any HOT food
      * @return the Service Charge
      */
-    def calculateServiceCharge(total: BigDecimal, containsFood: Boolean, containsHotItems: Boolean): BigDecimal = {
+    def calculateServiceCharge(total: BigDecimal, containsFood: Boolean, containsHotFood: Boolean): BigDecimal = {
 
         var serviceCharge = BigDecimal("0.00")
         var reason = " (Drinks Only)"
 
         if (true == containsFood) {
-            if (true == containsHotItems) {
+            if (true == containsHotFood) {
                 // If there is any HOT food, apply 20%
                 serviceCharge = total.*(BigDecimal.exact("0.20"))
                 reason = " (Hot Food - 20%)"

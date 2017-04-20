@@ -21,7 +21,7 @@ object CafeDemo {
                 }
             } catch {
                 case aioooe: ArrayIndexOutOfBoundsException =>
-                    println("ERROR: Invalid number of arguments. Please review and try agin.")
+                    println("=====\nERROR: Invalid number of arguments. Please review and try agin.")
                     println("Correct Format: ITEM_NAME_1 ITEM_TYPE_1 ITEM_NAME_2 ITEM_TYPE_2 ... ITEM_NAME_N ITEM_TYPE_N")
                     System.exit(0)
             }
@@ -42,7 +42,7 @@ object CafeDemo {
             println("Amount returned from method: " + total)
         } catch {
             case nsee: NoSuchElementException => {
-                println("'Exception message returned from method: " + nsee.getMessage + "'")
+                println("=====\nERROR: " + nsee.getMessage())
             }
         }
 

@@ -16,7 +16,7 @@ object CafeDemo {
             var i = 0
             try {
                 while (i < args.size) {
-                    itemList += ((args(i), args(i + 1)))
+                    itemList.+=((args(i), args(i + 1)))
                     i = i + 2
                 }
             } catch {
@@ -27,27 +27,27 @@ object CafeDemo {
             }
         } else {
             // If no arguments, then create sample list of items (specifying Hot/Cold for each item)
-            itemList += ((COLA, COLD))
-            itemList += ((COFFEE, HOT))
-            itemList += ((COFFEE, HOT))
-            itemList += ((CHEESE_SANDWICH, COLD))
-            itemList += ((CHEESE_SANDWICH, COLD))
-            itemList += ((CHEESE_SANDWICH, COLD))
-            itemList += ((CHEESE_SANDWICH, HOT))
-            itemList += ((CHEESE_SANDWICH, HOT))
-            itemList += ((CHEESE_SANDWICH, HOT))
-            itemList += ((CHEESE_SANDWICH, HOT))
-            itemList += ((STEAK_SANDWICH, COLD))
-            itemList += ((STEAK_SANDWICH, COLD))
-            itemList += ((STEAK_SANDWICH, COLD))
-            itemList += ((STEAK_SANDWICH, COLD))
-            itemList += ((STEAK_SANDWICH, COLD))
-            itemList += ((STEAK_SANDWICH, HOT))
-            itemList += ((STEAK_SANDWICH, HOT))
-            itemList += ((STEAK_SANDWICH, HOT))
-            itemList += ((STEAK_SANDWICH, HOT))
-            itemList += ((STEAK_SANDWICH, HOT))
-            itemList += ((STEAK_SANDWICH, HOT))
+            itemList.+=((COLA, COLD))
+            itemList.+=((COFFEE, HOT))
+            itemList.+=((COFFEE, HOT))
+            itemList.+=((CHEESE_SANDWICH, COLD))
+            itemList.+=((CHEESE_SANDWICH, COLD))
+            itemList.+=((CHEESE_SANDWICH, COLD))
+            itemList.+=((CHEESE_SANDWICH, HOT))
+            itemList.+=((CHEESE_SANDWICH, HOT))
+            itemList.+=((CHEESE_SANDWICH, HOT))
+            itemList.+=((CHEESE_SANDWICH, HOT))
+            itemList.+=((STEAK_SANDWICH, COLD))
+            itemList.+=((STEAK_SANDWICH, COLD))
+            itemList.+=((STEAK_SANDWICH, COLD))
+            itemList.+=((STEAK_SANDWICH, COLD))
+            itemList.+=((STEAK_SANDWICH, COLD))
+            itemList.+=((STEAK_SANDWICH, HOT))
+            itemList.+=((STEAK_SANDWICH, HOT))
+            itemList.+=((STEAK_SANDWICH, HOT))
+            itemList.+=((STEAK_SANDWICH, HOT))
+            itemList.+=((STEAK_SANDWICH, HOT))
+            itemList.+=((STEAK_SANDWICH, HOT))
         }
 
         def myCafe: Cafe = new Cafe()

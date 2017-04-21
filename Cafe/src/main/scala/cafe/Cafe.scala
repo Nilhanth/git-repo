@@ -9,19 +9,14 @@ import cafe.CafeConstants._
 
 class Cafe {
 
-    // Create a multi-key map (to allow both HOT and COLD versions of products)
-    implicit class EnhancedMap[A, B, C](m: Map[(A, B), C]) {
-        def update(a: A, b: B, c: C) { m((a, b)) = c }
-    }
-
-    // Create a map with products and their prices
-    val products = Map[(String, String), (String, BigDecimal)](
-        ((COLA, COLD) -> (DRINK, BigDecimal("0.50"))),
-        ((COFFEE, HOT) -> (DRINK, BigDecimal("1.00"))),
-        ((CHEESE_SANDWICH, COLD) -> (FOOD, BigDecimal("2.00"))),
-        ((CHEESE_SANDWICH, HOT) -> (FOOD, BigDecimal("2.50"))), // Example of both options ONLY (not in requirements)
-        ((STEAK_SANDWICH, COLD) -> (FOOD, BigDecimal("4.00"))), // Example of both options ONLY (not in requirements)
-        ((STEAK_SANDWICH, HOT) -> (FOOD, BigDecimal("4.50"))))
+    // Initialise map with products and their prices
+    val products: Map[(String, String), (String, BigDecimal)] = Map()
+    products.put((COLA, COLD), (DRINK, BigDecimal("0.50")))
+    products.put((COFFEE, HOT), (DRINK, BigDecimal("1.00")))
+    products.put((CHEESE_SANDWICH, COLD), (FOOD, BigDecimal("2.00")))
+    products.put((CHEESE_SANDWICH, HOT), (FOOD, BigDecimal("2.50"))) // Example of both options ONLY (not in requirements)
+    products.put((STEAK_SANDWICH, COLD), (FOOD, BigDecimal("4.00"))) // Example of both options ONLY (not in requirements)
+    products.put((STEAK_SANDWICH, HOT), (FOOD, BigDecimal("4.50")))
 
     /**
      * Calculates the total price of all the items in a given list
@@ -97,7 +92,7 @@ class Cafe {
     /**
      * Adds an item to an existing item list and updates it's total quantity.
      * If the item does not exist, it is created added to the list with a quantity of 1.
-     * 
+     *
      * @param purchasedItemsList - Existing list of items, their quantities and running totals
      * @param purchasedItem - The item being added to the list
      * @param itemPrice - The price of the item being added

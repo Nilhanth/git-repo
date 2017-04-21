@@ -3,6 +3,8 @@ package cafe
 import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfter
 import cafe.CafeConstants._
+import scala.math.BigDecimal
+import scala.collection.mutable.Map
 
 class CafeTest extends FunSuite with BeforeAndAfter {
 
@@ -151,7 +153,42 @@ class CafeTest extends FunSuite with BeforeAndAfter {
     }
 
     /**
-     * TEST 4 - Invalid Items
+     * TEST 4 - Quantities and Running Totals
+     */
+    test("Calculate total quantities and their running totals") {
+
+        // Setup empty list
+        var purchasedItems: Map[String, (Integer, BigDecimal)] = Map[String, (Integer, BigDecimal)]()
+
+        // Add 4 x Item1
+        myCafe.addPurchasedItemToList(purchasedItems, "Item1", BigDecimal("1.00"))
+        myCafe.addPurchasedItemToList(purchasedItems, "Item1", BigDecimal("1.00"))
+        myCafe.addPurchasedItemToList(purchasedItems, "Item1", BigDecimal("1.00"))
+
+        // Add 2 x Item2
+        myCafe.addPurchasedItemToList(purchasedItems, "Item2", BigDecimal("1.00"))
+        myCafe.addPurchasedItemToList(purchasedItems, "Item2", BigDecimal("1.00"))
+
+        // Add 5 x Item3
+        myCafe.addPurchasedItemToList(purchasedItems, "Item3", BigDecimal("1.00"))
+        myCafe.addPurchasedItemToList(purchasedItems, "Item3", BigDecimal("1.00"))
+        myCafe.addPurchasedItemToList(purchasedItems, "Item3", BigDecimal("1.00"))
+        myCafe.addPurchasedItemToList(purchasedItems, "Item3", BigDecimal("1.00"))
+        myCafe.addPurchasedItemToList(purchasedItems, "Item3", BigDecimal("1.00"))
+
+        // Ensure correct quantities
+        assertResult(3)(purchasedItems("Item1")._1)
+        assertResult(2)(purchasedItems("Item2")._1)
+        assertResult(5)(purchasedItems("Item3")._1)
+
+        // Ensure correct running totals
+        assertResult(BigDecimal("3.00"))(purchasedItems("Item1")._2)
+        assertResult(BigDecimal("2.00"))(purchasedItems("Item2")._2)
+        assertResult(BigDecimal("5.00"))(purchasedItems("Item3")._2)
+    }
+
+    /**
+     * TEST 5 - Invalid Items
      */
     test("Calculate total with invalid items") {
 

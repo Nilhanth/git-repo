@@ -1,6 +1,7 @@
 package cafe
 
 import java.util.NoSuchElementException
+import scala.collection.mutable.ListBuffer
 import scala.collection.mutable.Map
 import scala.math.BigDecimal
 import scala.math.BigDecimal.RoundingMode
@@ -33,8 +34,9 @@ class Cafe {
     def calculateTotal(items: List[(String, String)]): BigDecimal = {
 
         var total = BigDecimal("0.00")
-        var containsFood = false;
-        var containsHotFood = false;
+        var containsFood = false
+        var containsHotFood = false
+        var purchasedItems: Map[String, (Integer, BigDecimal)] = Map()
 
         println("============================")
         println("Calculating total for items:")
@@ -42,12 +44,16 @@ class Cafe {
 
         for (item: (String, String) <- items) {
             try {
-                print(item._1 + "(" + item._2 + ") => ")
 
                 var product = products((item._1, item._2))
 
-                // Add price to total
+                // Get price of item
                 def itemPrice: BigDecimal = product._2.asInstanceOf[BigDecimal]
+
+                // Add item to list of purchased items
+                addPurchasedItemToList(purchasedItems, item._1 + " (" + item._2 + ") @ " + itemPrice, itemPrice)
+
+                // Add price to total                
                 total = total.+(itemPrice)
 
                 // If item is food
@@ -63,13 +69,17 @@ class Cafe {
                     }
                 }
 
-                println(" Price: " + itemPrice)
             } catch {
                 case nsee: NoSuchElementException => {
                     println("NOT FOUND! Error")
                     throw nsee
                 }
             }
+        }
+
+        // Print list of purchased items with their quantity and subtotals
+        for (purchasedItem: (String, (Integer, BigDecimal)) <- purchasedItems) {
+            println(purchasedItem._2._1 + " x " + purchasedItem._1 + " => " + purchasedItem._2._2)
         }
 
         println("=====\nSubtotal: " + total)
@@ -82,6 +92,31 @@ class Cafe {
         println("=====\nTotal amount due: " + total + "\n=====")
 
         return total
+    }
+
+    /**
+     * Adds an item to an existing item list and updates it's total quantity.
+     * If the item does not exist, it is created added to the list with a quantity of 1.
+     * 
+     * @param purchasedItemsList - Existing list of items, their quantities and running totals
+     * @param purchasedItem - The item being added to the list
+     * @param itemPrice - The price of the item being added
+     */
+    def addPurchasedItemToList(purchasedItemsList: Map[String, (Integer, BigDecimal)], purchasedItem: String, itemPrice: BigDecimal) {
+
+        try {
+            // Try updating existing item (if it exists)
+            // and add 1 to the quantity
+            var runningTotal: BigDecimal = purchasedItemsList(purchasedItem)._2.+(itemPrice)
+            var quantity: Integer = purchasedItemsList(purchasedItem)._1 + 1
+            purchasedItemsList(purchasedItem) = (quantity, runningTotal)
+        } catch {
+            case nsee: NoSuchElementException => {
+                // If purchased item is not yet in the list
+                // then add it with a quantity of 1
+                purchasedItemsList(purchasedItem) = (1, itemPrice)
+            }
+        }
     }
 
     /**
